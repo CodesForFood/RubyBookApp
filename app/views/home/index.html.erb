@@ -1,0 +1,62 @@
+<h1>Welcome to the <span class="badge badge-secondary">Service Pros</span> Library</h1>
+<form method="GET" action="/view_all">
+    <p>You are currently viewing <strong> <%= @filtered_books.empty? ? 0 : @filtered_books.count %> </strong> books from the library. Click 
+        <button class="btn btn-primary">View All</button> 
+        to View them all, or Search below.
+    </p>
+</form>
+
+<form action="/search_books"> 
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="search_option" id="search_radio2" value="title" checked>
+        <label class="form-check-label" for="inlineRadio2">Title</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="search_option" id="search_radio1" value="isbn">
+        <label class="form-check-label" for="inlineRadio1">ISBN</label>
+    </div>
+  
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="search_option" id="search_radio3" value="author">
+        <label class="form-check-label" for="inlineRadio3">Author</label>
+    </div>
+
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="search_option" id="search_radio4" value="year">
+        <label class="form-check-label" for="inlineRadio3">Year</label>
+    </div>
+
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" id="search_field" name="search_field" placeholder="Enter Search Term" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+
+
+<% if !@filtered_books.empty? %>
+    <table class="table table-bordered">      
+        <thead>
+            <tr>
+                <th scope="col">ISBN</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Year</th>
+            </tr>
+        </thead>
+        <% @filtered_books.each do |book| %>
+            <tbody>
+                <tr>
+                    <td><%= book['isbn'] %></td>
+                    <td><%= book['title'] %></td>
+                    <td><%= book['author'] %></td>
+                    <td><%= book['year'] %></td>
+                </tr>
+            </tbody>
+        <% end %>
+    </table>
+<% else %>
+    <h3>There were no results for your search. Please try again</h3>
+
+<% end %>
